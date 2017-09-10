@@ -1,0 +1,11 @@
+package com.wbh.wbh_artifact1;
+
+import com.vaadin.ui.VerticalLayout;
+
+public class NetworkView extends VerticalLayout{
+
+	public NetworkView(){
+		final VizComponent component = new VizComponent();
+	}
+	
+}

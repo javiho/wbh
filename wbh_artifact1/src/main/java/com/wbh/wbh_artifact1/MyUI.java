@@ -24,6 +24,9 @@ public class MyUI extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
+    	final NetworkView networkView = new NetworkView();
+    	setContent(networkView);
+    	/*
         final VerticalLayout layout = new VerticalLayout();
         
         final TextField name = new TextField();
@@ -39,7 +42,7 @@ public class MyUI extends UI {
         layout.setMargin(true);
         layout.setSpacing(true);
         
-        setContent(layout);
+        setContent(layout);*/
         
         new World();
     }
