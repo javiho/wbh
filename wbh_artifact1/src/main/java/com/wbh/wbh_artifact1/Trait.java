@@ -10,6 +10,10 @@ public class Trait {
 		this.category = category;
 	}
 	
+	public String toString(){
+		return getFullName();
+	}
+	
 	public String getFullName(){
 		return this.category.getName() + " - " + this.ownName;
 	}

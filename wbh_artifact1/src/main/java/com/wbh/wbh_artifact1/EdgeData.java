@@ -12,6 +12,10 @@ public class EdgeData{
 	public EdgeData(double distance){
 		this.distance = distance;
 	}
+	
+	public String toString(){
+		return Double.toString(distance);
+	}
 
 	public double getDistance() {
 		return distance;
@@ -20,6 +24,5 @@ public class EdgeData{
 	public void setDistance(double distance) {
 		this.distance = distance;
 	}
-
 	
 }

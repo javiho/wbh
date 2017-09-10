@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import com.google.common.graph.MutableNetwork;
@@ -25,10 +26,10 @@ public class DistanceMatrix <T>{
 	 * @param node2
 	 * @param distance
 	 */
-	public void addPair(T node1, T node2, EdgeData distance){
+	public void addPair(T node1, T node2, Double distance){
 		// Edgejen pitää olla uniikkeja - entä jos on kaksi samaa booleania?
-		distances.addEdge(node1, node2, distance);
-		distances.addEdge(node2, node1, distance);
+		distances.addEdge(node1, node2, new EdgeData(distance));
+		distances.addEdge(node2, node1, new EdgeData(distance));
 	}
 	
 	/**
@@ -38,15 +39,26 @@ public class DistanceMatrix <T>{
 	 * @param distance
 	 */
 	public void addPair(T node1, T node2, Double distance1to2, Double distance2to1){
-		distances.addEdge(node1, node2, distance1to2);
-		distances.addEdge(node2, node1, distance2to1);
+		distances.addEdge(node1, node2, new EdgeData(distance1to2));
+		distances.addEdge(node2, node1, new EdgeData(distance2to1));
 	}
 	
 	public void printGraph(){
-		Set<Double> edgeValues = this.distances.edges();
-		for(Double edgeValue : edgeValues){
+		Set<EdgeData> edgeValues = this.distances.edges();
+		for(EdgeData edgeValue : edgeValues){
 			System.out.println(edgeValue.toString());
 		}
+		Set<T> nodes = this.distances.nodes();
+		for(T node : nodes){
+			Set<T> adjacentNodes = this.distances.adjacentNodes(node);
+			System.out.println(node + " adjacent nodes:");
+			for(T adjacentNode : adjacentNodes){
+				// Since edgeConnecting connects two adjecent nodes, it's guaranteed to exist.
+				EdgeData edgeConnecting = this.distances.edgeConnecting(node, adjacentNode).get();
+				System.out.println(adjacentNode + ", edge: " + edgeConnecting);
+			}
+		}
+		
 	}
 	
 	/*private Map<T, Map<T, Double>> distances;

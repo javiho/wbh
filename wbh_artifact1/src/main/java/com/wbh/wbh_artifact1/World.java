@@ -15,6 +15,7 @@ public class World {
 		this.categories = getCategories();
 		this.traits = getTraits();
 		populateDistanceMatrix();
+		distances.printGraph();
 	}
 	
 	private List<Category> getCategories(){
@@ -81,7 +82,7 @@ public class World {
 				foundTrait = trait;
 			}
 		}
-		if(traitsFound != 0){
+		if(traitsFound != 1){
 			//throw new Exception("Ambiguous trait name.");
 			System.out.println("traitsFound: " + traitsFound);
 			assert false;
