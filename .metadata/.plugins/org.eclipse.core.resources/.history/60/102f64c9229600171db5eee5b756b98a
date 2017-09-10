@@ -1,0 +1,10 @@
+package com.wbh.wbh_artifact1;
+
+public class UniqueDouble {
+	
+	double number;
+	
+	public UniqueDouble(double double){
+		this.number = double;
+	}
+}

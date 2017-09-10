@@ -1,0 +1,15 @@
+package com.wbh.wbh_artifact1;
+
+public class Category {
+
+	private String name;
+	
+	public Category(String name){
+		
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+}

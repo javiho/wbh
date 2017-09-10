@@ -1,0 +1,26 @@
+package com.wbh.wbh_artifact1;
+
+/**
+ * The purpose of this class is to represent a Double value so that two instances
+ * of this class are not equal even if they represent the same Double, unlike in the
+ * case of Double class.
+ * @author jaaho
+ *
+ */
+public class EdgeData{
+	
+	private double number;
+	
+	public UniqueDouble(double number){
+		this.number = number;
+	}
+
+	public double getNumber() {
+		return number;
+	}
+
+	public void setNumber(double number) {
+		this.number = number;
+	}
+	
+}

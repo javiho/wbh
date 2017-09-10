@@ -1,0 +1,28 @@
+package com.wbh.wbh_artifact1;
+
+/**
+ * The purpose of this class is to represent a Double value so that two instances
+ * of this class are not equal even if they represent the same Double, unlike in the
+ * case of Double class.
+ * Contais data for edge of 
+ * @author jaaho
+ *
+ */
+public class EdgeData{
+	
+	private double distance;
+	
+	public EdgeData(double distance){
+		this.distance = distance;
+	}
+
+	public double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+
+	
+}

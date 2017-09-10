@@ -1,0 +1,8 @@
+package com.wbh.wbh_artifact1;
+
+public class Trait {
+
+	private String name;
+	private String category
+	
+}
