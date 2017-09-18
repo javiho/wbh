@@ -1,0 +1,30 @@
+package com.wbh.wbh_artifact1;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.vaadin.ui.AbsoluteLayout;
+import com.vaadin.ui.Button;
+
+public class WorldMap extends AbsoluteLayout{
+	
+	private List<WorldLocation> worldLocations;
+	
+	public WorldMap(){
+		super();
+		this.worldLocations = new ArrayList<>();
+		this.setWidth("600px");
+		this.setHeight("600px");
+	}
+	
+	public void addLocation(WorldLocation worldLocation, double x, double y){
+		worldLocations.add(worldLocation);
+		Button locationComponent = new Button(worldLocation.getName());
+		this.addComponent(locationComponent);
+	}
+	
+	private AbsoluteLayout.ComponentPosition toAlcp(double x, double y){
+		
+	}
+	
+}

@@ -1,6 +1,7 @@
 package com.wbh.wbh_artifact1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,14 +11,14 @@ import java.util.Set;
 import com.google.common.graph.MutableNetwork;
 import com.google.common.graph.NetworkBuilder;
 
-public class DistanceMatrix <T>{
+public class DistanceMatrix <T extends Trait>{
 
 	MutableNetwork<T, EdgeData> distances;
 	
 	public DistanceMatrix(){
 		this.distances = NetworkBuilder.directed().build();
-		this.distances.allowsParallelEdges();
-		this.distances.allowsSelfLoops();
+		//this.distances.allowsParallelEdges();
+		//this.distances.allowsSelfLoops();
 	}
 	
 	/**
@@ -59,6 +60,48 @@ public class DistanceMatrix <T>{
 			}
 		}
 		
+	}
+	
+	public List<T> getNodes() {
+		Set<T> nodes = this.distances.nodes();
+		//T[] asList = (T[]) nodes.toArray();
+		List<T> asList = new ArrayList<T>(nodes);
+		// Sorting so that nodes will be returned in more consistent order between different calls.
+		Collections.sort(asList,
+				(t1, t2) -> t1.getFullName().compareTo(t2.getFullName()));
+		return asList;
+	}
+	
+	/**
+	 * 
+	 * @return list of arrays like: {EdgeData edge, T from-node, T to-node}.
+	 */
+	public List<Object[]> getEdgesAndNodes(){
+		Set<T> nodes = this.distances.nodes();
+		List<Object[]> result = new ArrayList<>();
+		for(T node1 : nodes){
+			for(T node2 : nodes){
+				Set<EdgeData> from1to2 = distances.edgesConnecting(node1, node2);
+				assert from1to2.size() == 1 || from1to2.size() == 0;
+				if(from1to2.size() == 1){
+					Object[] resultEdge = new Object[]{
+							from1to2.toArray(new EdgeData[0])[0],
+							node1,
+							node2
+					};
+					result.add(resultEdge);
+				}
+				
+			}
+		}
+		return result;
+		/*for(T node : nodes){
+			Set<EdgeData> outEdges = distances.outEdges(node);
+			for(EdgeData outEdge : outEdges){
+				Object[] edgeRow = new Object[]{outEdge, node, };
+			}
+			
+		}*/
 	}
 	
 	/*private Map<T, Map<T, Double>> distances;
@@ -112,5 +155,14 @@ public class DistanceMatrix <T>{
 		
 	}
 	*/
+	
+	/*public String[] getNodeNames(){
+	Set<T> nodes = this.distances.nodes();
+	List<String> nodeNames = new ArrayList<>();
+	for(T node : nodes){
+		nodeNames.add(node.getFullName());
+	}
+	return nodeNames.toArray(new String[0]);
+	}*/
 	
 }

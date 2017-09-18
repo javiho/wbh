@@ -24,8 +24,13 @@ public class MyUI extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
+    	final VerticalLayout mainLayout = new VerticalLayout();
     	final NetworkView networkView = new NetworkView();
-    	setContent(networkView);
+        World world = new World();
+    	final WorldMapView worldMapView = new WorldMapView(world.getWorldMap());
+    	setContent(mainLayout);
+    	mainLayout.addComponent(networkView);
+    	mainLayout.addComponent(worldMapView);
     	/*
         final VerticalLayout layout = new VerticalLayout();
         
@@ -44,7 +49,9 @@ public class MyUI extends UI {
         
         setContent(layout);*/
         
-        new World();
+        DistanceMatrix<Trait> dm = world.getDistanceMatrix();
+        networkView.visualizeDistanceMatrix(dm);
+        worldMapView.visualizeWorldMap();
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
