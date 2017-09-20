@@ -21,4 +21,6 @@
 <fullyQualifiedTypeName name="com.vaadin.ui.AbsoluteLayout"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="com.vaadin.ui.Grid"/>
+<fullyQualifiedTypeName name="com.vaadin.data.util.BeanItemContainer"/>
 </qualifiedTypeNameHistroy>

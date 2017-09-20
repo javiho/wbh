@@ -27,7 +27,7 @@ public class MyUI extends UI {
     	final VerticalLayout mainLayout = new VerticalLayout();
     	final NetworkView networkView = new NetworkView();
         World world = new World();
-    	final WorldMapView worldMapView = new WorldMapView(world.getWorldMap());
+    	final WorldMapGrid worldMapView = new WorldMapGrid(world.getWorldMap());
     	setContent(mainLayout);
     	mainLayout.addComponent(networkView);
     	mainLayout.addComponent(worldMapView);

@@ -103,16 +103,16 @@ public class World {
 	
 	private void populateWorldMap(){
 		Object[][] rawLocationData = new Object[][]{
-			{"Helsinki", "100", "200"},
-			{"Turku", "50", "250"},
-			{"Tampere", "200", "100"},
-			{"Oulu", "300", "10"},
-			{"Raja-Jooseppi", "150", "150"},
+			{"Helsinki", "5", "9"},
+			{"Turku", "3", "8"},
+			{"Tampere", "4", "6"},
+			{"Oulu", "3", "3"},
+			{"Raja-Jooseppi", "8", "1"},
 		};
 		for(Object[] rawLocationRow : rawLocationData){
 			this.worldMap.addLocation((String)rawLocationRow[0],
-					Double.parseDouble((String)rawLocationRow[1]),
-					Double.parseDouble((String)rawLocationRow[2]));
+					Integer.parseInt((String)rawLocationRow[1]),
+					Integer.parseInt((String)rawLocationRow[2]));
 		}
 	}
 	

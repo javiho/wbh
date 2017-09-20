@@ -11,7 +11,7 @@ import com.vaadin.ui.Button;
 public class WorldMap extends AbsoluteLayout{
 	
 	private List<WorldLocation> worldLocations;
-	private Map<WorldLocation, Double[]> coordinates;
+	private Map<WorldLocation, Integer[]> coordinates;
 	
 	public WorldMap(){
 		super();
@@ -21,10 +21,10 @@ public class WorldMap extends AbsoluteLayout{
 		this.setHeight("600px");
 	}
 	
-	public void addLocation(String name, double x, double y){
+	public void addLocation(String name, int x, int y){
 		WorldLocation wl = new WorldLocation(name);
 		worldLocations.add(wl);
-		Double[] coordinates = new Double[]{x, y};
+		Integer[] coordinates = new Integer[]{x, y};
 		this.coordinates.put(wl, coordinates);
 	}
 	
@@ -32,11 +32,11 @@ public class WorldMap extends AbsoluteLayout{
 		return this.worldLocations;
 	}
 
-	public Map<WorldLocation, Double[]> getCoordinates() {
+	public Map<WorldLocation, Integer[]> getCoordinates() {
 		return coordinates;
 	}
 
-	public void setCoordinates(Map<WorldLocation, Double[]> coordinates) {
+	public void setCoordinates(Map<WorldLocation, Integer[]> coordinates) {
 		this.coordinates = coordinates;
 	}
 
