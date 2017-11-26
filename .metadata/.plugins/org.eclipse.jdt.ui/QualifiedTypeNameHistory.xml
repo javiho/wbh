@@ -13,14 +13,22 @@
 <fullyQualifiedTypeName name="com.vaadin.pontus.vizcomponent.VizComponent.EdgeClickEvent"/>
 <fullyQualifiedTypeName name="com.wbh.wbh_artifact1.NetworkView"/>
 <fullyQualifiedTypeName name="java.util.Collections"/>
-<fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="com.vaadin.ui.Button"/>
 <fullyQualifiedTypeName name="com.vaadin.ui.AbsoluteLayout.ComponentPosition"/>
 <fullyQualifiedTypeName name="com.vaadin.ui.VerticalLayout"/>
 <fullyQualifiedTypeName name="com.vaadin.ui.AbsoluteLayout"/>
-<fullyQualifiedTypeName name="java.util.Map"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="com.vaadin.ui.Grid"/>
 <fullyQualifiedTypeName name="com.vaadin.data.util.BeanItemContainer"/>
+<fullyQualifiedTypeName name="com.vaadin.ui.GridLayout"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.vaadin.ui.Table"/>
+<fullyQualifiedTypeName name="com.wbh.wbh_artifact1.WorldLocation"/>
+<fullyQualifiedTypeName name="com.vaadin.ui.Button.ClickEvent"/>
+<fullyQualifiedTypeName name="com.wbh.wbh_artifact1.LocationInfoBox"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="com.vaadin.ui.HorizontalLayout"/>
+<fullyQualifiedTypeName name="com.vaadin.ui.Button"/>
+<fullyQualifiedTypeName name="com.wbh.wbh_artifact1.DistanceMatrix"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
 </qualifiedTypeNameHistroy>

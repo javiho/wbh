@@ -1,20 +1,26 @@
 package com.wbh.wbh_artifact1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.GridLayout;
 
 public class WorldMapGrid extends GridLayout{
 
 	//private List<WorldLocation> worldLocations;
-	WorldMap worldMap;
-	List<Button> worldLocationTiles;
+	private WorldMap worldMap;
+	private List<Button> worldLocationTiles;
+	private Map<Button, WorldLocation> worldLocations;
+	private final LocationInfoBox locationInfoBox;
 	
-	public WorldMapGrid(WorldMap worldMap){
+	public WorldMapGrid(WorldMap worldMap, LocationInfoBox locationInfoBox){
 		super();
+		this.locationInfoBox = locationInfoBox;
 		setStyleName("worldMap");
 		this.worldMap = worldMap;
 		this.setWidth("600px");
@@ -22,6 +28,7 @@ public class WorldMapGrid extends GridLayout{
 		this.setColumns(10);
 		this.setRows(10);
 		worldLocationTiles = new ArrayList<>();
+		this.worldLocations = new HashMap<>();
 		this.fillEmptySlots();
 	}
 	
@@ -38,10 +45,16 @@ public class WorldMapGrid extends GridLayout{
 	}
 	
 	private void addLocation(WorldLocation worldLocation, int x, int y){
-		Button locationComponent = new Button(worldLocation.getName());
+		Button locationComponent = new Button(worldLocation.getName(),
+				this::worldLocationButtonClicked);
 		locationComponent.setSizeFull();
 		worldLocationTiles.add(locationComponent);
+		this.worldLocations.put(locationComponent, worldLocation);
 		this.addComponent(locationComponent, x, y);
+	}
+	
+	private void worldLocationButtonClicked(ClickEvent e){
+		this.locationInfoBox.presentWorldLocation(this.worldLocations.get(e.getSource()));
 	}
 	
 	private void fillEmptySlots(){
@@ -50,7 +63,7 @@ public class WorldMapGrid extends GridLayout{
 				if(this.getComponent(j, i) == null){
 					Button defaultTile = new Button();
 					defaultTile.setSizeFull();
-					this.addComponent(defaultTile); // Without text buttons are too small.
+					this.addComponent(defaultTile);
 				}
 			}
 		}
@@ -58,6 +71,8 @@ public class WorldMapGrid extends GridLayout{
 	
 	private void clearSlots(){
 		this.removeAllComponents();
+		this.worldLocationTiles.clear();
+		this.worldLocations.clear();
 	}
 	
 	private String coordinatesToCssString(double x, double y){

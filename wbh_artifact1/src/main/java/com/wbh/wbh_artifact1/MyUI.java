@@ -25,12 +25,17 @@ public class MyUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
     	final VerticalLayout mainLayout = new VerticalLayout();
-    	final NetworkView networkView = new NetworkView();
-        World world = new World();
-    	final WorldMapGrid worldMapView = new WorldMapGrid(world.getWorldMap());
+    	World world = new World();
+    	final NetworkView networkView = new NetworkView(world);
+    	final LocationInfoBox locationInfoBox = new LocationInfoBox();
+    	final WorldMapGrid worldMapView = new WorldMapGrid(world.getWorldMap(), locationInfoBox);
+    	final FeatureControlBox featureControlBox = new FeatureControlBox(networkView);
     	setContent(mainLayout);
     	mainLayout.addComponent(networkView);
+    	mainLayout.addComponent(featureControlBox);
     	mainLayout.addComponent(worldMapView);
+    	mainLayout.addComponent(locationInfoBox);
+    	
     	/*
         final VerticalLayout layout = new VerticalLayout();
         

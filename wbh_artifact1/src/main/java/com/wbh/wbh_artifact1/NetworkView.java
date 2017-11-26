@@ -1,6 +1,7 @@
 package com.wbh.wbh_artifact1;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,11 +19,18 @@ public class NetworkView extends VerticalLayout{
 
 	Graph graph;
 	final VizComponent vizComponent;
+	private DistanceMatrix distanceMatrix;
+	private Map<Graph.Node, Trait> nodeCorrespondence = new HashMap<>();
+	private Map<Graph.Edge, EdgeData> edgeCorrespondence = new HashMap<>();
+	private Graph.Node selectedNode;
+	private Graph.Edge selectedEdge;
 	
-	public NetworkView(){
+	public NetworkView(World world){
 		this.vizComponent = new VizComponent();
 		//Graph.Node node1 = new Graph.Node("n1");
         //Graph.Node node2 = new Graph.Node("n2");
+		
+		this.distanceMatrix = world.getDistanceMatrix();
 
         Graph graph = new Graph("G", Graph.DIGRAPH);
         this.graph = graph;
@@ -55,9 +63,9 @@ public class NetworkView extends VerticalLayout{
 
             @Override
             public void nodeClicked(NodeClickEvent e) {
-                Graph.Node node = e.getNode();
-                vizComponent.addCss(node, "stroke", "blue");
-                vizComponent.addTextCss(node, "fill", "blue");
+                selectedNode = e.getNode();
+                vizComponent.addCss(e.getNode(), "stroke", "blue");
+                vizComponent.addTextCss(e.getNode(), "fill", "blue");
             }
 
         });
@@ -66,6 +74,7 @@ public class NetworkView extends VerticalLayout{
 
             @Override
             public void edgeClicked(EdgeClickEvent e) {
+            	selectedEdge = e.getEdge();
             	vizComponent.addCss(e.getEdge(), "stroke", "blue");
             	vizComponent.addTextCss(e.getEdge(), "fill", "blue");
 
@@ -81,6 +90,8 @@ public class NetworkView extends VerticalLayout{
 		 * 
 		 */
 		clearGraph(this.graph);
+		this.nodeCorrespondence.clear();
+		this.nodeCorrespondence.clear();
 		
 		Map<String, Graph.Node> nodeNames = new HashMap<>();
 		List<Trait> nodes = dm.getNodes();
@@ -88,6 +99,7 @@ public class NetworkView extends VerticalLayout{
 			String traitName = trait.getFullName();
 			Graph.Node newNode = new Graph.Node(traitName);
 			nodeNames.put(traitName, newNode);
+			this.nodeCorrespondence.put(newNode, trait);
 			this.graph.addNode(newNode);
 		}
 		List<Object[]> edges = dm.getEdgesAndNodes();
@@ -98,9 +110,11 @@ public class NetworkView extends VerticalLayout{
 			String node2name = trait2.getFullName();
 			Graph.Node node1 = nodeNames.get(node1name);
 			Graph.Node node2 = nodeNames.get(node2name);
-			double edgeValue = ( (EdgeData)edge[0] ).getDistance();
+			EdgeData edgeData = (EdgeData)edge[0];
+			double edgeValue = edgeData.getDistance();
 			//this.graph.addNode(new Graph
 			Graph.Edge newEdge = this.graph.addEdge(node1, node2);
+			this.edgeCorrespondence.put(newEdge, edgeData);
 			newEdge.setParam("label", Double.toString(edgeValue));
 		}
 		
@@ -108,11 +122,46 @@ public class NetworkView extends VerticalLayout{
 
 	}
 	
+	public void removeSelectedEdge(){
+		System.out.println("removeSelectedEdge called");
+		EdgeData removed = this.edgeCorrespondence.get(this.selectedEdge);
+		this.distanceMatrix.removeEdge(removed);
+		this.visualizeDistanceMatrix(this.distanceMatrix);
+		System.out.println("edge removed");
+	}
+	
+	public void removeSelectedNode(){
+		System.out.println("removeSelectedNode called");
+		Trait removed = this.nodeCorrespondence.get(this.selectedNode);
+		this.distanceMatrix.removeNode(removed);
+		this.visualizeDistanceMatrix(this.distanceMatrix);
+		System.out.println("edge removed");
+	}
+	
+	/*public EdgeData getSelectedEdge(){
+		return this.edgeCorrespondence.get(this.selectedEdge);
+	}
+	
+	public Trait getSelectedNode(){
+		return this.nodeCorrespondence.get(this.selectedNode);
+	}*/
+	
 	private void clearGraph(Graph graph){
 		Set<Graph.Node> nodes = graph.getNodes();
-		for(Graph.Node node : nodes){
-			graph.remove(node);
+		// Can't iterate directly over nodes Set while removing.
+		Graph.Node[] nodeArray = nodes.toArray(new Graph.Node[0]);
+		for(Graph.Node n : nodeArray){
+			System.out.println("clearGraph: removing node");
+			graph.remove(n);
 		}
+		assert(nodes.size() == 0);
+		Set<Graph.Edge> edges = graph.getEdges();
+		Graph.Node[] edgeArray = nodes.toArray(new Graph.Node[0]);
+		for(Graph.Node e : edgeArray){
+			System.out.println("clearGraph: removing edge");
+			graph.remove(e);
+		}
+		assert(edges.size() == 0);
 	}
 	
 }

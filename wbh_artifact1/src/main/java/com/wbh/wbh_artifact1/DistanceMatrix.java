@@ -11,6 +11,9 @@ import java.util.Set;
 import com.google.common.graph.MutableNetwork;
 import com.google.common.graph.NetworkBuilder;
 
+/*
+ * Is responsible for distances between features (not physical places).
+ */
 public class DistanceMatrix <T extends Trait>{
 
 	MutableNetwork<T, EdgeData> distances;
@@ -102,6 +105,15 @@ public class DistanceMatrix <T extends Trait>{
 			}
 			
 		}*/
+	}
+	
+	public void removeEdge(EdgeData edge){
+		this.distances.removeEdge(edge);
+		
+	}
+	
+	public void removeNode(T node){
+		this.distances.removeNode(node);
 	}
 	
 	/*private Map<T, Map<T, Double>> distances;

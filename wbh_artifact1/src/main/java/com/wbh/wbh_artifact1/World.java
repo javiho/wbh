@@ -19,6 +19,7 @@ public class World {
 		traitDistances.printGraph();
 		this.worldMap = new WorldMap();
 		populateWorldMap();
+		assignLocationTraits();
 	}
 	
 	public DistanceMatrix<Trait> getDistanceMatrix(){
@@ -95,7 +96,7 @@ public class World {
 		}
 		if(traitsFound != 1){
 			//throw new Exception("Ambiguous trait name.");
-			System.out.println("traitsFound: " + traitsFound);
+			System.out.println("traitsFound: " + traitsFound + " of name " + name + ".");
 			assert false;
 		}
 		return foundTrait;
@@ -113,6 +114,30 @@ public class World {
 			this.worldMap.addLocation((String)rawLocationRow[0],
 					Integer.parseInt((String)rawLocationRow[1]),
 					Integer.parseInt((String)rawLocationRow[2]));
+		}
+	}
+	
+	private void assignLocationTraits(){
+		Object[][] rawLocationTraitData = new Object[][]{
+			{"Helsinki", "government", "autocracy"},
+			{"Helsinki", "wealth", "medium"},
+			{"Helsinki", "military", "universal_conscription"},
+			{"Turku", "government", "democracy"},
+			{"Turku", "wealth", "rich"},
+			{"Turku", "military", "professional_army"},
+			{"Tampere", "government", "constitutional_monarchy"},
+			{"Tampere", "wealth", "poor"},
+			{"Tampere", "military", "universal_conscription"},
+			{"Oulu", "government", "democracy"},
+			{"Oulu", "wealth", "medium"},
+			{"Oulu", "military", "guard_only"},
+			{"Raja-Jooseppi", "government", "autocracy"},
+			{"Raja-Jooseppi", "wealth", "poor"},
+			{"Raja-Jooseppi", "military", "guard_only"},
+		};
+		for(Object[] dataRow : rawLocationTraitData){
+			this.worldMap.assignLocationTrait(
+					(String)dataRow[0], this.getTraitByName((String)dataRow[2]));
 		}
 	}
 	

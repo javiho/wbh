@@ -1,7 +1,0 @@
-package com.wbh.wbh_artifact1;
-
-import com.vaadin.ui.AbsoluteLayout;
-
-public class WorldMap extends AbsoluteLayout{
-	
-}
